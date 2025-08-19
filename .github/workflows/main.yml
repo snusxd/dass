@@ -1,0 +1,53 @@
+name: sorting
+on:
+  push:
+    branches: [main]
+    paths:
+      - "_sprites/**"
+      - "scripts/**"
+
+permissions:
+  contents: write
+
+jobs:
+  run-scripts:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: requirments
+        run: npm ci
+
+      - name: scripts
+        working-directory: ./scripts
+        run: |
+          rm -rf ../_sprites/unready
+          npx tsx write.ts
+          npx tsx sort.ts
+          npx tsx unready.ts
+
+      - name: commit changes (exclude sorted)
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A .
+          git reset _sprites/sorted
+          git commit -m "actions update" || exit 0
+          git push
+
+      - name: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: sorted
+          path: ./_sprites/sorted
+          retention-days: 15
+
+      - name: remove temp sorted folder
+        run: rm -rf ./_sprites/sorted
