@@ -1,9 +1,9 @@
 # DASS
 **D**eltarune **A**uto-**S**orting **S**prites — утилита для автоматической сортировки изменённых спрайтов Deltarune.
 
-[Принцип работы](https://github.com/snusxd/dass/edit/main/README_RU.md#%D0%BF%D1%80%D0%B8%D0%BD%D1%86%D0%B8%D0%BF-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B)\
-[UNIQUE.TXT](https://github.com/snusxd/dass/edit/main/README_RU.md#uniquetxt)\
-[Установка](https://github.com/snusxd/dass/edit/main/README_RU.md#%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0)
+[Принцип работы](#%D0%BF%D1%80%D0%B8%D0%BD%D1%86%D0%B8%D0%BF-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B)\
+[UNIQUE.TXT](#uniquetxt)\
+[Установка](#%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0)
 
 ## Принцип работы
 Основной принцип работы смехотворно прост.
@@ -18,7 +18,7 @@
 
 > [!Warning]
 > Важно будет заметить, что для анимированных спрайтов берутся оригинальные кадры. Т.е. если в изменённом спрайте кадров меньше или больше, случится конфликт. Такое поведение сделано для спрайтов, как `_sprites/original/spr_castle_shop`, в котором переводить нужно лишь один кадр, а остальные нужно оставить.\
-> Если у спрайта намеренно должно быть иное количество кадров, [смотрите ниже](https://github.com/snusxd/dass/edit/main/README.md#%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-%D0%BF%D0%BE%D0%BB%D0%BD%D0%BE%D1%81%D1%82%D1%8C%D1%8E-%D1%83%D0%BD%D0%B8%D0%BA%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BA%D0%BE%D0%BB%D0%B8%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%BE-%D0%BA%D0%B0%D0%B4%D1%80%D0%BE%D0%B2)!
+> Если у спрайта намеренно должно быть иное количество кадров, [смотрите ниже](#%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-%D0%BF%D0%BE%D0%BB%D0%BD%D0%BE%D1%81%D1%82%D1%8C%D1%8E-%D1%83%D0%BD%D0%B8%D0%BA%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BA%D0%BE%D0%BB%D0%B8%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%BE-%D0%BA%D0%B0%D0%B4%D1%80%D0%BE%D0%B2)!
 
 ## UNIQUE.TXT
 Предусмотрены парочку случаев, когда автоматизация не подойдёт, и нужно вписать какие-либо данные вручную, для этого существует `_sprites/unique.txt`!\
@@ -47,7 +47,7 @@ chapter4/sprite1
 Пример:
 ```
 UNIQUE FRAME COUNT:
-chapter4/sprite3
+sprite3
 ```
 Такая запись не будет проверять кадры `sprite3` в перед добавлением в архив, она просто напросто скопирует всю папку спрайта в `sorted` (во все места, где используется спрайт)
 
