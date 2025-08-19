@@ -2,6 +2,8 @@
 
 **D**eltarune **A**uto-**S**orting **S**prites — a utility for automatically sorting modified Deltarune sprites. :contentReference[oaicite:0]{index=0}
 
+[Русская версия README](https://github.com/snusxd/dass/blob/main/README_RU.md)
+
 [How it works](#how-it-works)  
 [UNIQUE.TXT](#uniquetxt)  
 [Installation](#installation)
