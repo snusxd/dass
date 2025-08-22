@@ -1,43 +1,43 @@
 # DASS
 
-**D**eltarune **A**uto-**S**orting **S**prites — a utility for automatically sorting modified Deltarune sprites.
+**D**eltarune **A**uto-**S**orting **S**prites — a utility for automating the sorting of modified Deltarune sprites.
 
 [Русская версия README](https://github.com/snusxd/dass/blob/main/README_RU.md)
 
-[How it works](#how-it-works)  
-[UNIQUE.TXT](#uniquetxt)  
+[How it works](#how-it-works)\
+[UNIQUE.TXT](#uniquetxt)\
+[What's SORTED-MERGED?](#whats-sorted-merged)\
 [Installation](#installation)
 
 ## How it works
 
-The underlying principle is laughably simple.
+The basic idea is laughably simple.
 
-There is a folder `_sprites/original` that contains the game’s original sprites. Every time the `_sprites` folder changes *(except, as I’ve noticed, file deletions)*, an archive named `sorted` is created in the Actions tab. That archive contains sprites sorted relative to `_sprites/original`.
+The folder `_sprites/original` contains the original game sprites. Whenever the `_sprites` folder is changed (deletions don’t seem to trigger it), two archives are built in the Actions tab: `sorted` and `sorted-merged`. These archives hold sprites sorted relative to `_sprites/original`.
 
-### Easier to show than to tell:
+### It’s easier to show than to tell!
 
-Suppose there’s a sprite `IMAGE_LOGO.png` currently used in every chapter (i.e. it sits in `_sprites/original/chapter1`, `_sprites/original/chapter2`, etc.).  
-Thanks to the utility, you only need to put **your** sprite `IMAGE_LOGO.png` into `_sprites/translation`. After the workflow finishes, that sprite will be replaced in every chapter inside the `sorted` archive!
+Right now the sprite `IMAGE_LOGO.png` is used in every chapter (i.e. it lives in `_sprites/original/chapter1`, `_sprites/original/chapter2`, and so on).  
+Thanks to DASS you only need to drop the modified `IMAGE_LOGO.png` into `_sprites/translation`, and when the workflow finishes, that sprite will be replaced in every chapter inside both `sorted` and `sorted-merged`!
 
-That’s really all there is to it — no complicated logic.
+That’s all. Nothing complicated.
 
-> [!Warning]
-> Animated sprites take their original frame count. If your modified sprite has fewer or more frames, a conflict occurs.  
-> This behaviour is intended for sprites like `_sprites/original/spr_castle_shop`, where only one frame needs translating and the rest must stay intact.  
-> If a sprite **needs** a different frame count, [see below](#setting-a-completely-unique-frame-count).
+> **Warning**  
+> Animated sprites are compared frame-by-frame. If the modified sprite has fewer or more frames, you’ll get a conflict. This is intentional for sprites like `_sprites/original/spr_castle_shop`, where only one frame needs translation and the rest must stay put.  
+> If the sprite is _supposed_ to have a different number of frames, [read on](#installing-a-completely-unique-frame-count).
 
-## UNIQUE.TXT
+## UNIQUE.TXT file
 
-There are a few cases where automation isn’t enough, and you need to enter data manually. That’s what `_sprites/unique.txt` is for.  
-With it you can add a completely unique sprite or set a unique frame count for an animated sprite.
+Sometimes automation gets in the way and you have to specify something manually — that’s what `_sprites/unique.txt` is for.  
+With it you can: add a completely unique sprite or set a completely unique frame count for an animated sprite.
 
 ### Adding unique sprites
 
-To add your own sprite to the final `sorted` archive:
+To add your own sprite to the final `sorted` and `sorted-merged` archives:
 
-1. Place the unique sprite in `_sprites/translation`.  
-2. Open `_sprites/unique.txt`.  
-3. Under `UNIQUE FOR SORTING:` write the **final path** of the file (inside `sorted`).
+1. Put the unique sprite into `_sprites/translation`.
+2. Open `_sprites/unique.txt`.
+3. Under `UNIQUE FOR SORTING:` write the **final path** of the file (as it should appear in `sorted` and `sorted-merged`).
 
 Example:
 
@@ -48,15 +48,15 @@ chapter4/sprite1
 
 ```
 
-This entry adds `sprite1` to folder `chapter4` in the output. Format is simply `folder/filename`, no extra symbols or extensions.
+DASS will place `sprite1` into the `chapter4` folder in the output. Just `folder/name` — no extra symbols or `.png`!
 
 ### Setting a completely unique frame count
 
-To set a unique frame count:
+To set a completely unique frame count:
 
-1. Add the sprite folder to `_sprites/translation` (include **all** required frames).  
-2. Open `_sprites/unique.txt`.  
-3. Under `UNIQUE FRAME COUNT:` just write the sprite’s name.
+1. Put a folder with the sprite into `_sprites/translation` (the folder must contain **all** required frames).
+2. Open `_sprites/unique.txt`.
+3. Under `UNIQUE FRAME COUNT:` write only the sprite’s name.
 
 Example:
 
@@ -67,13 +67,16 @@ sprite3
 
 ```
 
-This entry skips frame checking for `sprite3` and simply copies the entire sprite folder into `sorted` (wherever the sprite is used).
+DASS won’t check the frame count of `sprite3`; instead, it will simply copy the entire sprite folder into `sorted` and its combined version `sorted-merged` (everywhere the sprite is used).
+
+## What's SORTED-MERGED?
+
+This archive was added for easier use with [Deltranslate](https://neprim.itch.io/deltranslate-project). All animated sprites are concatenated into a single strip, letting Deltranslate import them effortlessly!
 
 ## Installation
 
-To use DASS comfortably, fork this repository… and that’s it!\
-The repo already contains a configured workflow that handles everything.
+To start using DASS comfortably, fork this repository… and that’s it! The repo already has a workflow that builds `sorted` and `sorted-merged`.
 
-Fork created? You can start adding your files to `_sprites/translations` and get to work. Remember: the finished archive waits in the Actions tab!
+Forked it? Add your sprites to `_sprites/translations` and get to work! The resulting archives will be waiting for you in the Actions tab.
 
-# Enjoy!
+# Happy translating!
