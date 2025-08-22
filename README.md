@@ -22,7 +22,7 @@ Thanks to DASS you only need to drop the modified `IMAGE_LOGO.png` into `_sprite
 
 That’s all. Nothing complicated.
 
-> **Warning**  
+> [!Warning]  
 > Animated sprites are compared frame-by-frame. If the modified sprite has fewer or more frames, you’ll get a conflict. This is intentional for sprites like `_sprites/original/spr_castle_shop`, where only one frame needs translation and the rest must stay put.  
 > If the sprite is _supposed_ to have a different number of frames, [read on](#installing-a-completely-unique-frame-count).
 
