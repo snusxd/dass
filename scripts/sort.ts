@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { spawn } from "child_process";
 
 const SPECIALS = ["sp", "spm"];
 const DATA = JSON.parse(fs.readFileSync("./data.json", "utf-8"));
@@ -138,4 +139,12 @@ if (UNIQUES_NAMES != undefined) {
         { recursive: true, force: true }
       );
   }
+}
+
+for (const chapter of chapters) {
+  spawn("python3", [
+    "merge.py",
+    `../_sprites/sorted/${chapter}`,
+    `../_sprites/sorted-merged/${chapter}`,
+  ]);
 }

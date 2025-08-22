@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   run-scripts:
@@ -25,6 +26,16 @@ jobs:
       - name: requirments
         run: npm ci
 
+      - name: setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: install python deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install pillow
+
       - name: scripts
         working-directory: ./scripts
         run: |
@@ -39,15 +50,44 @@ jobs:
           git config --local user.name "GitHub Action"
           git add -A .
           git reset _sprites/sorted
-          git commit -m "actions update" || exit 0
+          git reset _sprites/sorted-merged
+          git commit -m "actions commit" || exit 0
           git push
 
-      - name: upload
+      - name: delete previous actions
+        uses: actions/github-script@v6
+        id: artifact
+        with:
+          script: |
+            const res = await github.rest.actions.listArtifactsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
+
+            res.data.artifacts
+              .forEach(({ id }) => {
+                github.rest.actions.deleteArtifact({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  artifact_id: id,
+                })
+              })
+
+      - name: upload sorted
         uses: actions/upload-artifact@v4
         with:
           name: sorted
           path: ./_sprites/sorted
           retention-days: 15
 
+      - name: upload sorted-merged
+        uses: actions/upload-artifact@v4
+        with:
+          name: sorted-merged
+          path: ./_sprites/sorted-merged
+          retention-days: 15
+
       - name: remove temp sorted folder
-        run: rm -rf ./_sprites/sorted
+        run: |
+          rm -rf ./_sprites/sorted
+          rm -rf ./_sprites/sorted-merged
